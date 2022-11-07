@@ -1,6 +1,8 @@
 import Link from "next/link";
 import PocktBase from "pocketbase";
 import CreateNote from "./CreateNote";
+import styles from "./Notes.module.css";
+
 
 async function getNotes() {
   const db = new PocktBase("http://127.0.0.1:8090");
@@ -17,7 +19,7 @@ export default async function NotesPage() {
   return (
     <div>
       <h1>Notes</h1>
-      <div>
+      <div className={styles.grid}>
         {notes?.map((note) => {
           return <Note key={note.id} note={note} />;
         })}
@@ -31,8 +33,7 @@ function Note({ note }: any) {
   const { id, title, posts, created } = note || {};
   return (
     <Link href={`/notes/${id}`}>
-      <div>
-       
+      <div className={styles.note}>
         <h2>{title}</h2>
         <p>{posts}</p>
         <p>{created}</p>
